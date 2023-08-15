@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import MainNavLinks from "./compo/MainNavLinks";
 import { Switch, Route } from "react-router-dom";
+import Login from "./compo/Login";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
           <h1 className="text-3xl font-bold text-pink-300">Profiloo !</h1>
         </Route>
         <Route path="/login" exact>
-          <h1 className="text-3xl font-bold text-red-700">Gir artık !</h1>
+          <Login />
         </Route>
       </Switch>
     </div>
