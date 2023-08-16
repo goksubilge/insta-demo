@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const {
@@ -12,13 +13,19 @@ const Login = () => {
     // request => https://wit-courses.onrender.com/login
     axios
       .post("https://wit-courses.onrender.com/login", data)
-      .then((response) => console.log(response.data))
+      .then((response) => {
+        localStorage.setItem("insta", response.data.token);
+        toast.success("Giriş başarılı", { autoClose: 1000 });
+      })
       .catch((error) => console.log(error));
   };
 
   return (
     <div className="max-w-[280px] mx-auto">
-      <h1 className="flex  align-middle justify-center text-3xl font-bold text-stone-500">
+      <h1
+        /* onClick={() => toast.success("Giriş başarısı", { autoClose: 1000 })} */ // bu click test yalnızca, axiostakinden bağımsız
+        className="flex  align-middle justify-center text-3xl font-bold text-stone-500"
+      >
         Gir artık !
       </h1>
       <form onSubmit={handleSubmit(reqSendSubmit)}>
@@ -27,7 +34,6 @@ const Login = () => {
             E-Mail
             {errors.email && (
               <span className="text-red-500 text-xs ">
-                {" "}
                 *Warning! This field is required
               </span>
             )}
@@ -44,7 +50,6 @@ const Login = () => {
             Şifre
             {errors.password && (
               <span className="text-red-500 text-xs ">
-                {" "}
                 *Warning! This field is required
               </span>
             )}
