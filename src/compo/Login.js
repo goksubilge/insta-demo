@@ -1,5 +1,6 @@
 import React from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 const Login = () => {
   const {
@@ -7,14 +8,20 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const reqSendSubmit = (data) => {
+    // request => https://wit-courses.onrender.com/login
+    axios
+      .post("https://wit-courses.onrender.com/login", data)
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <div className="max-w-[280px] mx-auto">
       <h1 className="flex  align-middle justify-center text-3xl font-bold text-stone-500">
         Gir artık !
       </h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(reqSendSubmit)}>
         <label className="flex flex-col gap-2 py-2">
           <span className="flex justify-between items-baseline">
             E-Mail
