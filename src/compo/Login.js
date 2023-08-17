@@ -1,7 +1,8 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { Flip, toast } from "react-toastify";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const Login = () => {
   const {
@@ -9,13 +10,40 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const history = useHistory();
+
+  const toastId = React.useRef(null);
+
   const reqSendSubmit = (data) => {
     // request => https://wit-courses.onrender.com/login
+
+    //Toast başlangıç
+
+    toastId.current = toast("Giriş Yapıyorum...", {
+      autoClose: false,
+      transition: Flip,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      position: "top-center",
+    });
+
     axios
       .post("https://wit-courses.onrender.com/login", data)
       .then((response) => {
         localStorage.setItem("insta", response.data.token);
-        toast.success("Giriş başarılı", { autoClose: 1000 });
+        //Toast notification update
+        toast.update(toastId.current, {
+          collapseDuration: 500,
+          render: "Giriş işlemini yaptım, yönlendiriyorum!",
+          autoClose: 2000, // autoClose ile setTimeOut yönlendirme süresini eşitliyoruz. burda kesinlikle response süresine bağlı yönlendirme toast u yazdık.
+        });
+        setTimeout(() => {
+          history.push("/profile");
+        }, 2000);
       })
       .catch((error) => console.log(error));
   };
