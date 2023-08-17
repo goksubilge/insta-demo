@@ -32,7 +32,14 @@ const Login = () => {
     });
 
     axios
-      .post("https://wit-courses.onrender.com/login", data)
+      .post(
+        "https://wit-courses.onrender.com/login",
+        data //normalde burası dümdüz data std token süresi, ben elle tanımlayarak 1 dk lık bir token verdim.
+        /*       {
+        ...data,
+        duration: "1m",
+      } */
+      )
       .then((response) => {
         localStorage.setItem("insta", response.data.token);
         //Toast notification update

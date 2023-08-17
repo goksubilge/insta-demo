@@ -4,24 +4,14 @@ import MainNavLinks from "./compo/MainNavLinks";
 import { Switch, Route } from "react-router-dom";
 import Login from "./compo/Login";
 import { useState } from "react";
-import jwt_decode from "jwt-decode";
-
-function CheckLsForUser() {
-  const token = localStorage.getItem("insta");
-  if (token) {
-    const user = jwt_decode(token);
-    return user;
-    // to do : exp date deneyeceğim için direkt return yapmadım.
-  } else {
-    return null;
-  }
-}
+import { CheckLsForUser } from "./helpers.js";
 
 function App() {
   const useFromLs = CheckLsForUser();
   const [user, setUser] = useState(useFromLs);
   //burda önce const user ile useState'i kontrol ettiriyorum. oraya bakıp diyor ki localda user var onu yazayım, yoksa null dönerim. token var ama exp date geçmiş o zaman yine null olarak başlatabiliriz.
   // jwt.io decode yaptırmalıyım, install yapıyorum şimdi bunun için
+  console.log("loglanan user:", user);
 
   return (
     <div className=" max-w-[480px] mx-auto bg-fuchsia-200">
