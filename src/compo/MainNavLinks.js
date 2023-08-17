@@ -1,7 +1,28 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
+import { toast, Flip } from "react-toastify";
 
-const MainNavLinks = () => {
+const MainNavLinks = (props) => {
+  console.log("main nav props:", props);
+  const history = useHistory();
+
+  function LogOutHandle() {
+    localStorage.removeItem("insta");
+    props.setUser(null);
+    toast.success("çıkabildin, aferim", {
+      autoClose: 1000,
+      transition: Flip,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      position: "top-center",
+    });
+
+    setTimeout(() => history.push("/"), 1000);
+  }
+
   return (
     <nav className="flex gap-2 justify-center ">
       <NavLink to="/" exact activeClassName="text-pink-600">
@@ -10,9 +31,13 @@ const MainNavLinks = () => {
       <NavLink to="/profile" activeClassName="text-pink-600">
         Profil
       </NavLink>
-      <NavLink to="/login" activeClassName="text-pink-600">
-        Giriş
-      </NavLink>
+      {props.user ? (
+        <button onClick={LogOutHandle}>Çıkış</button>
+      ) : (
+        <NavLink to="/login" activeClassName="text-pink-600">
+          Giriş
+        </NavLink>
+      )}
     </nav>
   );
 };

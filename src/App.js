@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className=" max-w-[480px] mx-auto bg-fuchsia-200">
-      <MainNavLinks />
+      <MainNavLinks user={user} setUser={setUser} />
       <Switch>
         <Route path="/" exact>
           <h1 className="flex justify-center text-3xl font-bold text-yellow-300">
