@@ -9,7 +9,7 @@ const MainNavLinks = (props) => {
   function LogOutHandle() {
     localStorage.removeItem("insta");
     props.setUser(null);
-    toast.success("çıkabildin, aferim", {
+    toast.success("çıkabildin, aferin", {
       autoClose: 1000,
       transition: Flip,
       hideProgressBar: false,
